@@ -145,10 +145,13 @@
 
 .btn-edit,
 .btn-delete {
-    padding: 5px 10px;
+    background: #dc3545;
+    color: white;
+    padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .btn-edit {
@@ -159,6 +162,44 @@
 .btn-delete {
     background-color: #ffebee;
     color: #c62828;
+}
+.btn-delete:hover {
+    background: #c82333;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+#deleteConfirmModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+
+#deleteConfirmModal h2 {
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+
+#deleteConfirmModal .fa-exclamation-triangle {
+    color: #dc3545;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+#deleteConfirmModal p {
+    margin-bottom: 20px;
+    color: #333;
 }
 
 /* Status Styles */
@@ -202,4 +243,10 @@
         display: block;
         overflow-x: auto;
     }
+}
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
 }

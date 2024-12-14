@@ -1,12 +1,9 @@
 let contextPath = '';
+let ticketToDelete = null;
 
 document.addEventListener('DOMContentLoaded', function() {
     contextPath = document.querySelector('meta[name="contextPath"]').getAttribute('content');
-    
-    // Initialize modal close handlers
     initializeModalHandlers();
-    
-    // Initialize form validation
     initializeFormValidation();
 });
 
@@ -23,12 +20,21 @@ function editTicket(ticketId, price, quantity, status) {
 }
 
 function confirmDelete(ticketId) {
-    if (confirm('Are you sure you want to delete this ticket?')) {
-        const deleteForm = document.getElementById('deleteForm');
-        deleteForm.action = contextPath + '/admin/tickets';
-        document.getElementById('deleteTicketId').value = ticketId;
-        deleteForm.submit();
+    ticketToDelete = ticketId;
+    document.getElementById('deleteConfirmModal').style.display = 'block';
+}
+
+function executeDelete() {
+    if (ticketToDelete) {
+        const form = document.getElementById('deleteForm');
+        document.getElementById('deleteTicketId').value = ticketToDelete;
+        form.submit();
     }
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteConfirmModal').style.display = 'none';
+    ticketToDelete = null;
 }
 
 function validateTicketForm(formId) {
@@ -50,14 +56,12 @@ function validateTicketForm(formId) {
 }
 
 function initializeModalHandlers() {
-    // Close modal when clicking outside
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.style.display = 'none';
         }
     }
 
-    // Close buttons in modals
     document.querySelectorAll('.close').forEach(button => {
         button.onclick = function() {
             this.closest('.modal').style.display = 'none';
@@ -66,7 +70,6 @@ function initializeModalHandlers() {
 }
 
 function initializeFormValidation() {
-    // Add ticket form validation
     const addForm = document.getElementById('addTicketForm');
     if (addForm) {
         addForm.addEventListener('submit', function(e) {
@@ -76,7 +79,6 @@ function initializeFormValidation() {
         });
     }
 
-    // Edit ticket form validation
     const editForm = document.getElementById('editTicketForm');
     if (editForm) {
         editForm.addEventListener('submit', function(e) {
@@ -87,11 +89,10 @@ function initializeFormValidation() {
     }
 }
 
-// Utility functions
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD'
+        currency: 'LKR'
     }).format(amount);
 }
 

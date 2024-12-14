@@ -76,18 +76,17 @@ public class TicketDAO {
         }
     }
 
-    public void deleteTicket(int ticketId) {
+    public boolean deleteTicket(int ticketId) {
         String sql = "DELETE FROM tickets WHERE ticket_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, ticketId);
             int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new RuntimeException("Ticket not found with ID: " + ticketId);
-            }
+            return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting ticket: " + e.getMessage());
         }
     }
+    
 
     public Ticket getTicketById(int ticketId) {
         String sql = "SELECT t.*, s.show_time, m.title FROM tickets t " +

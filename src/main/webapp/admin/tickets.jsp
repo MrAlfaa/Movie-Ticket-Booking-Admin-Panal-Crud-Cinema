@@ -155,6 +155,19 @@
                     </div>
                 </div>
 
+                <!-- Delete Confirmation Alert -->
+                <div id="deleteConfirmModal" class="modal">
+                    <div class="modal-content">
+                        <h2><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h2>
+                        <p>Are you sure you want to delete this ticket?</p>
+                        <div class="modal-actions">
+                            <button onclick="executeDelete()" class="btn-delete">Delete</button>
+                            <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- Delete Form -->
                 <form id="deleteForm" method="post" style="display: none;">
                     <input type="hidden" name="action" value="delete">
