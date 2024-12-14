@@ -1,0 +1,3 @@
+com\cinema\booking\servlets\AdminServlet.class
+com\cinema\booking\servlets\NavigationServlet.class
+com\cinema\booking\servlets\LogoutServlet.class
