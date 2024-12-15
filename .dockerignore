@@ -5,3 +5,4 @@ target/*
 .gitignore
 .env
 *.md
+node_modules/

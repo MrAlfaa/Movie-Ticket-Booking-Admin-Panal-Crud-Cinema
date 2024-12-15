@@ -12,6 +12,8 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=admin
       - MYSQL_DATABASE=cinema_db
+    volumes:
+      - ./src/main/webapp:/usr/local/tomcat/webapps/ROOT
 
   db:
     image: mysql:8.0
