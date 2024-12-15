@@ -13,30 +13,33 @@ import javax.servlet.http.Cookie;
 public class LogoutServlet extends HttpServlet {
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Invalidate the session
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        
-        // Clear any cookies if present
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
+        try {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
             }
+            
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                }
+            }
+            
+            response.sendRedirect(request.getContextPath() + "/admin/login.jsp?logout=success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/admin/login.jsp?error=logout_failed");
         }
-        
-        // Redirect to login page
-        response.sendRedirect(request.getContextPath() + "/admin/login.jsp");
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        doGet(request, response);
+        doPost(request, response);
     }
 }

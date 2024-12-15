@@ -111,6 +111,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
+    <!-- <script src="../js/dashboard.js"></script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded with modal:', !!document.getElementById('logoutModal'));
+        });
+    </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<script src="${pageContext.request.contextPath}/js/script.js"></script>
 <div class="sidenav">
     <div class="logo">
         <img src="../images/banner.png" alt="Cinema Logo" class="logo-img">
@@ -22,17 +23,14 @@
         </a>
     </nav>
     <div class="logout">
-    <form id="logoutForm" action="${pageContext.request.contextPath}/admin/logout" method="post" style="display: none;"></form>
-    <a href="javascript:void(0)" onclick="handleLogout()" class="nav-item">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-    </a>
+        <a href="#" onclick="confirmLogout(); return false;" class="nav-item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
 </div>
 
-    
-</div>
-
-<!-- Logout Confirmation Modal -->
+<!-- Logout Modal -->
 <div id="logoutModal" class="modal">
     <div class="modal-content">
         <h2><i class="fas fa-sign-out-alt"></i> Confirm Logout</h2>
@@ -43,3 +41,5 @@
         </div>
     </div>
 </div>
+
+<form id="logoutForm" action="${pageContext.request.contextPath}/admin/logout" method="post" style="display: none;"></form>
