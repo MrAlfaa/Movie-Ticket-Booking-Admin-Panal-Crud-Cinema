@@ -2,7 +2,7 @@
 <div class="sidenav">
     <div class="logo">
         <img src="../images/banner.png" alt="Cinema Logo" class="logo-img">
-        <h2>Cinema Admin</h2>
+        <h2>ABC Cinema</h2>
     </div>
     <nav>
         <a href="${pageContext.request.contextPath}/admin/navigation?page=dashboard" 
