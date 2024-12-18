@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context>
-    <Resource name="jdbc/cinemadb" 
-              auth="Container"
-              type="javax.sql.DataSource"
-              username="root"
-              password="admin"
-              driverClassName="com.mysql.cj.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/cinema_db"
-              maxTotal="20"
-              maxIdle="5"
-              maxWaitMillis="10000"/>
-</Context>
+<resources>
+    <jdbc-resource enabled="true" 
+                   jndi-name="jdbc/cinemadb" 
+                   object-type="user" 
+                   pool-name="cinemaPool">
+    </jdbc-resource>
+    
+    <jdbc-connection-pool name="cinemaPool"
+                         res-type="javax.sql.DataSource"
+                         datasource-classname="com.mysql.cj.jdbc.MysqlDataSource">
+        <property name="URL" value="jdbc:mysql://localhost:3306/cinema_db"/>
+        <property name="User" value="root"/>
+        <property name="Password" value="admin"/>
+        <property name="serverTimezone" value="UTC"/>
+        <property name="useSSL" value="false"/>
+        <property name="allowPublicKeyRetrieval" value="true"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="maxIdleTime" value="300"/>
+    </jdbc-connection-pool>
+</resources>

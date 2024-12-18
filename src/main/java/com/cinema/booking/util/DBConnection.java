@@ -1,22 +1,25 @@
 package com.cinema.booking.util;
 
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://localhost:3306/cinema_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "admin";
-    
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    private static final String JNDI_LOOKUP = "jdbc/cinemadb";
     
     public static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        InitialContext ctx = new InitialContext();
+        DataSource ds = (DataSource) ctx.lookup(JNDI_LOOKUP);
+        return ds.getConnection();
+    }
+    
+    public static void closeConnection(Connection conn) {
+        try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error closing connection", e);
+        }
     }
 }

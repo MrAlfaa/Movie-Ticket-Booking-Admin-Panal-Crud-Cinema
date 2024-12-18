@@ -1,6 +1,6 @@
 package com.cinema.booking.util;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import com.google.gson.Gson;
 
