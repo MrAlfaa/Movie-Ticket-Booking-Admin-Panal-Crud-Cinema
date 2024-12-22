@@ -17,7 +17,7 @@ public class UserFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
 
         String requestURI = httpRequest.getRequestURI();
-        boolean isHomePage = requestURI.endsWith("/home.jsp");
+        boolean isHomePage = requestURI.endsWith("/home.jsp") || requestURI.endsWith("/home2.jsp");
         boolean isLoginPage = requestURI.endsWith("login.jsp");
         boolean isRegisterPage = requestURI.endsWith("register.jsp");
         boolean isAuthServlet = requestURI.endsWith("/auth");

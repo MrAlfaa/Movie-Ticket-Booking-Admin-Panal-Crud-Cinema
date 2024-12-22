@@ -76,7 +76,7 @@ public class UserAuthenticationServlet extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                response.sendRedirect(request.getContextPath() + "/user/home.jsp");
+                response.sendRedirect(request.getContextPath() + "/user/home2.jsp");
             } else {
                 request.setAttribute("error", "Invalid credentials");
                 request.getRequestDispatcher("/user/login.jsp").forward(request, response);
