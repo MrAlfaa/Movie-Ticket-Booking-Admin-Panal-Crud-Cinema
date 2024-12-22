@@ -15,16 +15,18 @@ CREATE TABLE users (
 );
 
 -- Create Movies table
-CREATE TABLE movies (
-    movie_id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL,
-    description TEXT,
-    duration INT,
-    release_date DATE,
-    rating DECIMAL(2,1),
-    poster_url VARCHAR(255),
-    status ENUM('NOW_SHOWING', 'COMING_SOON', 'ENDED') DEFAULT 'COMING_SOON'
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role ENUM('ADMIN', 'USER') DEFAULT 'USER',
+    nic VARCHAR(20) UNIQUE NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    gender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Create Theaters table
 CREATE TABLE theaters (

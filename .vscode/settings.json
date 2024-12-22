@@ -1,3 +1,23 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "editor.inlineSuggest.enabled": true,
+    "cody.experimental.symphonyInlineComplete": true,
+    "cody.inlineChat.enabled": true,
+    "cody.experimental.commandK": true,
+    "cody.experimental.commandPalette": true,
+    "cody.experimental.chatPredictions": true,
+    "cody.experimental.chatPanel": true,
+    "cody.codeActions.enabled": true,
+    "cody.experimental.contextSelection": true,
+    "cody.experimental.editorTitleCommandIcon": true,
+    "cody.request.timeout": 120000,
+    "cody.experimental.guardrails": true,
+    "editor.formatOnSave": true,
+    "errorLens.enabledDiagnosticLevels": [
+        "error",
+        "warning",
+        "info"
+    ],
+    "errorLens.enabled": true,
+    "path-intellisense.autoSlashAfterDirectory": true,
+    "path-intellisense.showHiddenFiles": true
 }
