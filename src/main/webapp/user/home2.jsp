@@ -142,7 +142,8 @@
                                             <a class="nav-link active text-white mx-2" aria-current="page" href="#">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">Movies</a>
+                                            <a class="nav-link text-white mx-2" href="${pageContext.request.contextPath}/user/movies">Movies</a>
+
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link text-white mx-2" href="#">My Bookings</a>
