@@ -11,22 +11,25 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     role ENUM('ADMIN', 'USER') DEFAULT 'USER',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create Movies table
-CREATE TABLE users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    role ENUM('ADMIN', 'USER') DEFAULT 'USER',
     nic VARCHAR(20) UNIQUE NOT NULL,
     phone_number VARCHAR(15) NOT NULL,
     gender ENUM('MALE', 'FEMALE', 'OTHER') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
+-- Create Movies table
+CREATE TABLE `movies` (
+  movie_id int NOT NULL AUTO_INCREMENT,
+  title varchar(100) NOT NULL,
+  description text,
+  duration int DEFAULT NULL,
+  release_date date DEFAULT NULL,
+  rating decimal(2,1) DEFAULT NULL,
+  poster_url varchar(255) DEFAULT NULL,
+  status enum('NOW_SHOWING','COMING_SOON','ENDED') DEFAULT 'COMING_SOON',
+  PRIMARY KEY (movie_id)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
 -- Create Theaters table
 CREATE TABLE theaters (
