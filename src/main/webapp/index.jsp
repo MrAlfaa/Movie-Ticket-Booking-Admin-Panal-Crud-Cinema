@@ -5,11 +5,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Cinema Admin Panel</title>
+    <title>Cinema Booking</title>
 </head>
 <body>
     <%
-        response.sendRedirect(request.getContextPath() + "/admin/navigation?page=dashboard");
+        response.sendRedirect(request.getContextPath() + "/user/home.jsp");
     %>
 </body>
 </html>
