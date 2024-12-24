@@ -3,7 +3,10 @@ package com.cinema.booking.dao;
 import java.sql.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.cinema.booking.model.Ticket;
 import com.cinema.booking.util.DBConnection;
 
@@ -23,10 +26,9 @@ public class TicketDAO {
 
     public List<Ticket> getAllTickets() {
         List<Ticket> tickets = new ArrayList<>();
-        String sql = "SELECT t.*, s.show_time, m.title FROM tickets t " +
-                    "JOIN shows s ON t.show_id = s.show_id " +
-                    "JOIN movies m ON s.movie_id = m.movie_id";
-        
+        String sql = "SELECT t.*, m.title FROM tickets t " +
+                "JOIN movies m ON t.movie_id = m.movie_id";
+
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -41,19 +43,18 @@ public class TicketDAO {
     private Ticket mapResultSetToTicket(ResultSet rs) throws SQLException {
         Ticket ticket = new Ticket();
         ticket.setTicketId(rs.getInt("ticket_id"));
-        ticket.setShowId(rs.getInt("show_id"));
+        ticket.setMovieId(rs.getInt("movie_id")); // Changed from show_id to movie_id
         ticket.setPrice(rs.getBigDecimal("price"));
         ticket.setQuantity(rs.getInt("quantity"));
         ticket.setStatus(rs.getString("status"));
-        ticket.setShowTime(rs.getTimestamp("show_time"));
         ticket.setMovieTitle(rs.getString("title"));
         return ticket;
     }
 
     public void addTicket(Ticket ticket) {
-        String sql = "INSERT INTO tickets (show_id, price, quantity, status) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tickets (movie_id, price, quantity, status) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, ticket.getShowId());
+            stmt.setInt(1, ticket.getMovieId());
             stmt.setBigDecimal(2, ticket.getPrice());
             stmt.setInt(3, ticket.getQuantity());
             stmt.setString(4, ticket.getStatus());
@@ -86,14 +87,12 @@ public class TicketDAO {
             throw new RuntimeException("Error deleting ticket: " + e.getMessage());
         }
     }
-    
 
     public Ticket getTicketById(int ticketId) {
-        String sql = "SELECT t.*, s.show_time, m.title FROM tickets t " +
-                    "JOIN shows s ON t.show_id = s.show_id " +
-                    "JOIN movies m ON s.movie_id = m.movie_id " +
-                    "WHERE t.ticket_id = ?";
-        
+        String sql = "SELECT t.*, m.title FROM tickets t " +
+                "JOIN movies m ON t.movie_id = m.movie_id " +
+                "WHERE t.ticket_id = ?";
+
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, ticketId);
             ResultSet rs = stmt.executeQuery();
@@ -105,4 +104,20 @@ public class TicketDAO {
         }
         return null;
     }
+
+    public Map<Integer, BigDecimal> getMoviePrices() {
+        Map<Integer, BigDecimal> prices = new HashMap<>();
+        String sql = "SELECT movie_id, MIN(price) as price FROM tickets WHERE status = 'AVAILABLE' GROUP BY movie_id";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                prices.put(rs.getInt("movie_id"), rs.getBigDecimal("price"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching movie prices: " + e.getMessage());
+        }
+        return prices;
+    }
+
 }

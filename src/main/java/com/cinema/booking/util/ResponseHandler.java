@@ -13,18 +13,21 @@ public class ResponseHandler {
         response.getWriter().write(gson.toJson(data));
     }
 
-    public static void sendErrorResponse(HttpServletResponse response, String message, int status) throws IOException {
+    public static void sendErrorResponse(HttpServletResponse response, String message, int status)
+            throws IOException {
         response.setStatus(status);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(gson.toJson(new ErrorResponse(message)));
+        response.getWriter().write("{\"error\":\"" + message + "\"}");
     }
 
-    private static class ErrorResponse {
-        private final String error;
+    public static void sendSuccessResponse(HttpServletResponse response, Object data) throws IOException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        sendJsonResponse(response, data);
+    }
 
-        public ErrorResponse(String error) {
-            this.error = error;
-        }
+    public static void sendCreatedResponse(HttpServletResponse response, Object data) throws IOException {
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        sendJsonResponse(response, data);
     }
 }

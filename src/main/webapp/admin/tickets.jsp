@@ -71,7 +71,7 @@
                                     <td>#${ticket.ticketId}</td>
                                     <td>${ticket.movieTitle}</td>
                                     <td>${ticket.showTime}</td>
-                                    <td>$${ticket.price}</td>
+                                    <td>${ticket.price}</td>
                                     <td>${ticket.quantity}</td>
                                     <td><span class="status ${fn:toLowerCase(ticket.status)}">${ticket.status}</span></td>
                                     <td class="action-buttons">
@@ -96,11 +96,11 @@
                         <form id="addTicketForm" action="${pageContext.request.contextPath}/admin/tickets" method="post">
                             <input type="hidden" name="action" value="add">
                             <div class="form-group">
-                                <label>Show:</label>
-                                <select name="showId" required>
-                                    <c:forEach items="${shows}" var="show">
-                                        <option value="${show.showId}">
-                                            ${show.movieTitle} - ${show.showTime} (${show.theaterName})
+                                <label>Movie:</label>
+                                <select name="movieId" required>
+                                    <c:forEach items="${movies}" var="movie">
+                                        <option value="${movie.movieId}">
+                                            ${movie.title} (${movie.status})
                                         </option>
                                     </c:forEach>
                                 </select>
@@ -166,7 +166,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Delete Form -->
                 <form id="deleteForm" method="post" style="display: none;">

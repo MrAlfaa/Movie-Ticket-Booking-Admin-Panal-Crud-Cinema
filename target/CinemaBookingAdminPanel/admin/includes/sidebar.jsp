@@ -9,10 +9,15 @@
            class="nav-item ${param.page == 'dashboard' ? 'active' : ''}">
             <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
+        <a href="${pageContext.request.contextPath}/admin/movies" class="nav-item ${param.page == 'movies' ? 'active' : ''}">
+            <i class="fas fa-film"></i> Movie Management
+        </a>
         <a href="${pageContext.request.contextPath}/admin/navigation?page=tickets" 
            class="nav-item ${param.page == 'tickets' ? 'active' : ''}">
             <i class="fas fa-ticket-alt"></i> Ticket Management
         </a>
+        
+        
         <a href="${pageContext.request.contextPath}/admin/navigation?page=users" 
            class="nav-item ${param.page == 'users' ? 'active' : ''}">
             <i class="fas fa-users"></i> User Management
