@@ -19,5 +19,6 @@
     ],
     "errorLens.enabled": true,
     "path-intellisense.autoSlashAfterDirectory": true,
-    "path-intellisense.showHiddenFiles": true
+    "path-intellisense.showHiddenFiles": true,
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

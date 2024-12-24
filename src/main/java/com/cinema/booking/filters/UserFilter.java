@@ -21,10 +21,13 @@ public class UserFilter implements Filter {
         boolean isLoginPage = requestURI.endsWith("login.jsp");
         boolean isRegisterPage = requestURI.endsWith("register.jsp");
         boolean isAuthServlet = requestURI.endsWith("/auth");
+        boolean isMoviesPage = requestURI.endsWith("/movies");
 
         if (isHomePage || isLoginPage || isRegisterPage || isAuthServlet
                 || (session != null && session.getAttribute("user") != null)) {
             chain.doFilter(request, response);
+        } else if (isMoviesPage && (session == null || session.getAttribute("user") == null)) {
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
         }
