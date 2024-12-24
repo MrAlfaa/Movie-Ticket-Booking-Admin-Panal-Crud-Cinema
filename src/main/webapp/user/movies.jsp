@@ -127,6 +127,56 @@
                 opacity: 1;
             }
         }
+
+        .movie-popup {
+            display: none;
+            position: absolute;
+            background: rgba(20, 20, 20, 0.95);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 400px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .movie-card-container {
+            position: relative;
+        }
+
+        .movie-details {
+            margin-top: 15px;
+        }
+
+        .movie-details p {
+            margin: 8px 0;
+        }
+
+        .rating-badge {
+            background: #e50914;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        .duration-badge {
+            background: #2d2d2d;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .price-badge {
+    background: #2d2d2d;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.price-badge i {
+    margin-right: 5px;
+    color: #e50914;
+}
+
     </style>
 </head>
 <body class="bg-black text-white">
@@ -205,15 +255,19 @@
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <c:forEach items="${movies}" var="movie">
                             <div class="col">
-                                <div class="card text-bg-dark movie-card">
+                                <div class="movie-card">
                                     <img src="${movie.posterUrl}" class="card-img-top" alt="${movie.title}">
                                     <div class="card-body">
                                         <h5 class="card-title">${movie.title}</h5>
                                         <p class="card-text">${fn:substring(movie.description, 0, 100)}...</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <span class="badge bg-primary">${movie.status}</span>
-                                            <a href="booking?movieId=${movie.movieId}" class="btn btn-primary">Book Now</a>
+                                            <span class="price-badge">
+                                                <i class="fas fa-ticket-alt"></i> 
+                                                LKR ${moviePrices[movie.movieId]}
+                                            </span>
                                         </div>
+                                        <a href="booking?movieId=${movie.movieId}" class="btn btn-primary w-100 mt-2">Book Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -224,5 +278,32 @@
             <div class="col-1"></div>
         </div>
     </div>
+
+    <script>
+    function showPopup(container, movieId) {
+        const popup = container.querySelector('.movie-popup');
+        const card = container.querySelector('.movie-card');
+        const rect = card.getBoundingClientRect();
+        
+        popup.style.display = 'block';
+        
+        // Position the popup next to the card
+        const spaceRight = window.innerWidth - rect.right;
+        if (spaceRight >= 420) {
+            // Show on the right if there's enough space
+            popup.style.left = '100%';
+            popup.style.top = '0';
+        } else {
+            // Show on the left if there isn't enough space on the right
+            popup.style.right = '100%';
+            popup.style.top = '0';
+        }
+    }
+
+    function hidePopup(container) {
+        const popup = container.querySelector('.movie-popup');
+        popup.style.display = 'none';
+    }
+    </script>
 </body>
 </html>
