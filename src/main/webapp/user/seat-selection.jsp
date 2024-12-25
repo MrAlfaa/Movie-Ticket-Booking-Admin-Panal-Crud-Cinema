@@ -33,6 +33,10 @@
             </div>
         </div>
     </div>
+    <script>
+        const SEAT_PRICE = parseFloat("${ticketPrice}");
+        const TICKET_COUNT = parseInt("${sessionScope.ticketCount}");
+    </script>
     <script src="../js/seat-selection.js"></script>
 </body>
 </html>

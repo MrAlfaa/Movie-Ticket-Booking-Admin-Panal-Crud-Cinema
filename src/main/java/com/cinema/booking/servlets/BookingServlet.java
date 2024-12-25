@@ -16,25 +16,25 @@ import java.sql.Date;
 public class BookingServlet extends HttpServlet {
     private BookingDAO bookingDAO;
     private MovieDAO movieDAO;
+    private TicketDAO ticketDAO;
 
     @Override
     public void init() {
         bookingDAO = new BookingDAO();
         movieDAO = new MovieDAO();
+        ticketDAO = new TicketDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String pathInfo = request.getPathInfo();
+        int movieId = Integer.parseInt(request.getParameter("movieId"));
+        Movie movie = movieDAO.getMovieById(movieId);
+        BigDecimal ticketPrice = ticketDAO.getMoviePrice(movieId);
 
-        if (pathInfo == null || pathInfo.equals("/")) {
-            // Show booking form
-            int movieId = Integer.parseInt(request.getParameter("movieId"));
-            Movie movie = movieDAO.getMovieById(movieId);
-            request.setAttribute("movie", movie);
-            request.getRequestDispatcher("/user/booking.jsp").forward(request, response);
-        }
+        request.setAttribute("movie", movie);
+        request.setAttribute("ticketPrice", ticketPrice);
+        request.getRequestDispatcher("/user/booking.jsp").forward(request, response);
     }
 
     @Override
@@ -55,6 +55,8 @@ public class BookingServlet extends HttpServlet {
         try {
             int bookingId = bookingDAO.createBooking(booking);
             session.setAttribute("currentBookingId", bookingId);
+            session.setAttribute("ticketPrice", ticketDAO.getMoviePrice(booking.getMovieId()));
+            session.setAttribute("ticketCount", booking.getNumTickets());
             response.sendRedirect(request.getContextPath() + "/user/seat-selection.jsp");
         } catch (Exception e) {
             request.setAttribute("error", "Booking failed: " + e.getMessage());
