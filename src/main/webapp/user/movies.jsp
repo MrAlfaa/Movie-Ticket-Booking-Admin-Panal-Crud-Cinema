@@ -267,9 +267,26 @@
                                                 LKR ${moviePrices[movie.movieId]}
                                             </span>
                                         </div>
-                                        <a href="booking?movieId=${movie.movieId}" class="btn btn-primary w-100 mt-2">Book Now</a>
+                                        <a href="${pageContext.request.contextPath}/user/booking?movieId=${movie.movieId}" class="btn btn-primary w-100 mt-2">Book Now</a>
                                     </div>
                                 </div>
+                                <!-- <div class="movie-popup">
+                                    <h4>${movie.title}</h4>
+                                    <div class="movie-details">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <span class="rating-badge">
+                                                <i class="fas fa-star"></i> ${movie.rating}
+                                            </span>
+                                            <span class="duration-badge">
+                                                <i class="fas fa-clock"></i> ${movie.duration} mins
+                                            </span>
+                                        </div>
+                                        <p>${movie.description}</p>
+                                        <p><strong>Release Date:</strong> ${movie.releaseDate}</p>
+                                        <p><strong>Status:</strong> ${movie.status}</p>
+                                        <a href="booking?movieId=${movie.movieId}" class="btn btn-primary w-100">Book Now</a>
+                                    </div>
+                                </div> -->
                             </div>
                         </c:forEach>
                     </div>
