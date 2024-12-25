@@ -1,0 +1,46 @@
+Implement a movie booking functionality for this  website where users can book movie tickets, select seats, and complete the payment process seamlessly. The implementation should ensure real-time seat availability updates to prevent booking conflicts.
+User Flow:
+Movie Selection:
+On the movies.jsp page, users click the "Book Now" button for a specific movie, navigating them to the movie booking page.
+Booking Details Entry:
+On the movie booking page:
+Users input:
+Booking date
+Number of tickets
+Show time (Options: 8:30 AM–10:30 AM, 12:30 PM–2:30 PM, 4:30 PM–6:30 PM, 8:30 PM–10:30 PM).
+Default dropdown values should be implemented for show times.
+Seat Selection:
+After clicking "Next," users select seats based on the number of tickets chosen.
+Reference booking.html  and booking.css  for the seat selection UI.
+Checkout:
+After seat selection, users click the "Checkout" button, navigating to the payment page.
+Users select payment methods, enter payment details, and complete the transaction.
+Post-Payment:
+Upon successful payment:
+Users are redirected back to the movies.jsp  page.
+The selected seats are marked as unavailable for others to prevent conflicts.
+Technical Implementation Details:
+Frontend:
+Utilize HTML, CSS, and JavaScript for the booking and seat selection UI. Reference existing booking.html and booking.css files for the seat selection logic.
+Implement responsive dropdowns and form validations for user inputs.
+Backend:
+Use JSP/Servlets or a similar backend technology to handle user requests and database interactions.
+Create necessary routes:
+/bookMovie to render the booking page.
+/processBooking to handle form submissions.
+/confirmSeats to save seat reservations.
+Database:
+Use the existing Already_created_table.db  database.
+Design and utilize additional tables:
+Booking table to store booking details 
+ReservedSeats table to track unavailable seats for each show.
+Update the ReservedSeats table dynamically after a booking is confirmed.
+Seat Conflict Resolution:
+Implement database locks or transactional isolation levels to prevent seat selection conflicts during simultaneous bookings.
+Payment Integration:
+Integrate with a payment gateway (Stripe).
+Ensure proper error handling for failed payments and rollback of reserved seats.
+
+first find all nessasry files to implemnt this functions and update it and add nessasry files and code
+
+CinemaBookingAdminPanel StripeConfig.java CloudinaryConfig.java  MovieDAO.java  UserDAO.java TicketDAO.java AuthenticationFilter.java UserFilter.java User.java Movie.java Ticket.java StripeService.java CloudinaryService.java AuthenticationServlet.java MovieServlet.java TicketServlet.java NavigationServlet.java StripePaymentServlet.java FileUploadServlet.java UserAuthenticationServlet.java ResponseHandler.java StripeWebhookHandler.java home.jsp home2.jsp pom.xml context.xml web.xml 

@@ -105,6 +105,20 @@ public class TicketDAO {
         return null;
     }
 
+    public BigDecimal getMoviePrice(int movieId) {
+        String sql = "SELECT MIN(price) as price FROM tickets WHERE movie_id = ? AND status = 'AVAILABLE'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, movieId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBigDecimal("price");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching ticket price", e);
+        }
+        return BigDecimal.ZERO;
+    }
+
     public Map<Integer, BigDecimal> getMoviePrices() {
         Map<Integer, BigDecimal> prices = new HashMap<>();
         String sql = "SELECT movie_id, MIN(price) as price FROM tickets WHERE status = 'AVAILABLE' GROUP BY movie_id";
