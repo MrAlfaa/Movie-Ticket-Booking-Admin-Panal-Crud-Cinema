@@ -15,16 +15,21 @@ public class StripeService {
     }
 
     public PaymentIntent createPaymentIntent(Long amount, String currency) throws StripeException {
-        PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-                .setAmount(amount)
-                .setCurrency(currency)
-                .setAutomaticPaymentMethods(
-                        PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
-                                .setEnabled(true)
-                                .build())
-                .build();
+        try {
+            PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                    .setAmount(amount)
+                    .setCurrency(currency)
+                    .setAutomaticPaymentMethods(
+                            PaymentIntentCreateParams.AutomaticPaymentMethods.builder()
+                                    .setEnabled(true)
+                                    .build())
+                    .build();
 
-        return PaymentIntent.create(params);
+            return PaymentIntent.create(params);
+        } catch (StripeException e) {
+            System.err.println("Stripe error: " + e.getMessage());
+            throw e;
+        }
     }
 
     public Refund createRefund(String paymentIntentId) throws StripeException {

@@ -39,3 +39,47 @@ CREATE TABLE `users` (
   UNIQUE KEY `nic` (`nic`),
   UNIQUE KEY `nic_2` (`nic`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `bookings` (
+  `booking_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `movie_id` int NOT NULL,
+  `show_time` varchar(50) NOT NULL,
+  `booking_date` date NOT NULL,
+  `num_tickets` int NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `payment_status` enum('PENDING','COMPLETED','FAILED') DEFAULT 'PENDING',
+  `payment_intent_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`booking_id`),
+  KEY `user_id` (`user_id`),
+  KEY `movie_id` (`movie_id`),
+  CONSTRAINT `bookings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `reserved_seats` (
+  `seat_id` int NOT NULL AUTO_INCREMENT,
+  `booking_id` int NOT NULL,
+  `seat_number` varchar(10) NOT NULL,
+  `status` enum('RESERVED','CONFIRMED') DEFAULT 'RESERVED',
+  PRIMARY KEY (`seat_id`),
+  KEY `booking_id` (`booking_id`),
+  CONSTRAINT `reserved_seats_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `payments` (
+  `payment_id` int NOT NULL AUTO_INCREMENT,
+  `booking_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_intent_id` varchar(255) NOT NULL,
+  `status` enum('PENDING','COMPLETED','FAILED') DEFAULT 'PENDING',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`payment_id`),
+  KEY `booking_id` (`booking_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`),
+  CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

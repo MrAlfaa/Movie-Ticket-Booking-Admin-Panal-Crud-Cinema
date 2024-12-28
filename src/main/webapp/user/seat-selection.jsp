@@ -5,10 +5,30 @@
     <title>Select Seats</title>
     <link href="../css/seat-selection.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-dark text-white">
     <div class="container mt-5">
         <h2>Select Your Seats</h2>
+
+        <div class="booking-info mt-3">
+            <div class="booking-info-container">
+                <div class="info-item">
+                    <i class="fas fa-film"></i>
+                    <span>Movie: ${sessionScope.selectedMovie}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Show Time: ${sessionScope.selectedShowTime}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Date: ${sessionScope.selectedDate}</span>
+                </div>
+            </div>
+        </div>
+        
         
         <div class="screen-container">
             <div class="screen">Screen</div>
