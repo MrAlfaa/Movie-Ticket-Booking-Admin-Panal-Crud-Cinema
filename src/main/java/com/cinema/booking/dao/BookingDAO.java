@@ -40,10 +40,11 @@ public class BookingDAO {
         }
     }
 
-    public void updatePaymentStatus(int bookingId, String paymentStatus, String paymentIntentId) throws SQLException {
+    public void updatePaymentStatus(int bookingId, String status, String paymentIntentId)
+            throws SQLException {
         String sql = "UPDATE bookings SET payment_status = ?, payment_intent_id = ? WHERE booking_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, paymentStatus);
+            stmt.setString(1, status);
             stmt.setString(2, paymentIntentId);
             stmt.setInt(3, bookingId);
             stmt.executeUpdate();
@@ -75,4 +76,14 @@ public class BookingDAO {
         }
         return bookings;
     }
+
+    public void updateBookingStatus(int bookingId, String status) throws SQLException {
+        String sql = "UPDATE bookings SET status = ? WHERE booking_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, bookingId);
+            stmt.executeUpdate();
+        }
+    }
+
 }

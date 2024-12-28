@@ -2,6 +2,71 @@
     perspective: 1000px;
     margin-bottom: 30px;
 }
+.booking-info {
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 15px;
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+.booking-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+.info-item i {
+    font-size: 1.2rem;
+}
+.info-item:nth-child(1) i {
+    color: #ffd700;
+}
+
+.info-item:nth-child(2) i {
+    color: #00ffcc;
+}
+
+.info-item:nth-child(3) i {
+    color: #ff69b4;
+}
+
+.booking-info p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.booking-info p:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.booking-info p:nth-child(1):before {
+    content: "\f008";
+    color: #ffd700;
+}
+
+.booking-info p:nth-child(2):before {
+    content: "\f017";
+    color: #00ffcc;
+}
+
+.booking-info p:nth-child(3):before {
+    content: "\f073";
+    color: #ff69b4;
+}
 
 .screen {
     background: #fff;
@@ -79,4 +144,7 @@
         transform: translateX(0);
     }
 }
+
+
+
 

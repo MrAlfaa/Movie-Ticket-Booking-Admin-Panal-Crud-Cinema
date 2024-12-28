@@ -88,13 +88,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     proceedButton.addEventListener('click', function() {
-        if (selectedSeats.length !== TICKET_COUNT) {
-            showAlert(`Please select exactly ${TICKET_COUNT} seats`);
-            return;
+        const userId = sessionStorage.getItem('userId');
+        if (selectedSeats.length === TICKET_COUNT) {
+            sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+            // Ensure userId persists
+            window.location.href = 'payment.jsp';
         }
-        
-        sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
-        window.location.href = 'payment.jsp';
     });
     
     createSeatMap();

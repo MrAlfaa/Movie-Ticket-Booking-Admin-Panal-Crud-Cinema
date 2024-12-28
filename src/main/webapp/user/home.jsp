@@ -37,13 +37,13 @@
                                             <a class="nav-link active text-white mx-2" aria-current="page" href="#">Home</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">Movies</a>
+                                            <a class="nav-link text-white mx-2" href="#" onclick="location.href='${pageContext.request.contextPath}/user/login.jsp'">Movies</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">My Bookings</a>
+                                            <a class="nav-link text-white mx-2" href="#" onclick="location.href='${pageContext.request.contextPath}/user/login.jsp'">My Bookings</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">Feedback</a>
+                                            <a class="nav-link text-white mx-2" href="#" onclick="location.href='${pageContext.request.contextPath}/user/login.jsp'">Feedback</a>
                                         </li>
                                     </ul>
                                     <!-- Login button next to the links -->
