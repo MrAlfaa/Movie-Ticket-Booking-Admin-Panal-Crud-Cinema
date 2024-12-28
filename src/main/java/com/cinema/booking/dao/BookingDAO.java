@@ -40,6 +40,29 @@ public class BookingDAO {
         }
     }
 
+    public Booking getBookingById(int bookingId) throws SQLException {
+        String sql = "SELECT * FROM bookings WHERE booking_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, bookingId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Booking booking = new Booking();
+                booking.setBookingId(rs.getInt("booking_id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setMovieId(rs.getInt("movie_id"));
+                booking.setShowTime(rs.getString("show_time"));
+                booking.setBookingDate(rs.getDate("booking_date"));
+                booking.setNumTickets(rs.getInt("num_tickets"));
+                booking.setTotalAmount(rs.getBigDecimal("total_amount"));
+                booking.setPaymentStatus(rs.getString("payment_status"));
+                booking.setPaymentIntentId(rs.getString("payment_intent_id"));
+                booking.setCreatedAt(rs.getTimestamp("created_at"));
+                return booking;
+            }
+        }
+        return null;
+    }
+
     public void updatePaymentStatus(int bookingId, String status, String paymentIntentId)
             throws SQLException {
         String sql = "UPDATE bookings SET payment_status = ?, payment_intent_id = ? WHERE booking_id = ?";
@@ -85,5 +108,4 @@ public class BookingDAO {
             stmt.executeUpdate();
         }
     }
-
 }

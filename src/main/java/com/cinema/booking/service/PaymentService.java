@@ -2,7 +2,11 @@ package com.cinema.booking.service;
 
 import com.cinema.booking.dao.PaymentDAO;
 import com.cinema.booking.dao.BookingDAO;
+import com.cinema.booking.dao.UserDAO;
+import com.cinema.booking.dao.MovieDAO;
 import com.cinema.booking.model.Payment;
+import com.cinema.booking.model.Booking;
+import com.cinema.booking.model.User;
 import com.cinema.booking.constants.PaymentStatus;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -11,29 +15,31 @@ import java.util.List;
 public class PaymentService {
     private PaymentDAO paymentDAO;
     private BookingDAO bookingDAO;
+    private UserDAO userDAO;
+    private MovieDAO movieDAO;
 
     public PaymentService() {
         this.paymentDAO = new PaymentDAO();
         this.bookingDAO = new BookingDAO();
+        this.userDAO = new UserDAO();
+        this.movieDAO = new MovieDAO();
     }
 
     public void processPayment(int bookingId, int userId, BigDecimal amount, String paymentIntentId)
             throws SQLException {
         try {
-            System.out.println("Processing payment - BookingID: " + bookingId + ", UserID: " + userId +
-                    ", Amount: " + amount + ", PaymentIntentID: " + paymentIntentId);
-
-            // Validate input parameters
-            if (bookingId <= 0 || userId <= 0 || amount == null || paymentIntentId == null) {
-                throw new IllegalArgumentException("Invalid payment parameters");
-            }
-
             paymentDAO.createPayment(bookingId, userId, amount, paymentIntentId);
             bookingDAO.updatePaymentStatus(bookingId, PaymentStatus.COMPLETED, paymentIntentId);
 
-        } catch (SQLException e) {
-            System.err.println("Database error during payment processing: " + e.getMessage());
-            throw e;
+            // Send email confirmation
+            Booking booking = bookingDAO.getBookingById(bookingId);
+            User user = userDAO.getUserById(userId);
+            String movieTitle = movieDAO.getMovieById(booking.getMovieId()).getTitle();
+
+            EmailService emailService = new EmailService();
+            emailService.sendBookingConfirmation(user, booking, movieTitle);
+        } catch (Exception e) {
+            throw new SQLException("Payment processing failed: " + e.getMessage());
         }
     }
 
