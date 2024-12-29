@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/admin/navigation")
 public class NavigationServlet extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String page = request.getParameter("page");
-        
-        // Direct navigation for specific pages
-        switch(page) {
+
+        switch (page) {
             case "tickets":
                 response.sendRedirect(request.getContextPath() + "/admin/tickets");
+                return;
+            case "users":
+                response.sendRedirect(request.getContextPath() + "/admin/users");
                 return;
             case "dashboard":
                 request.setAttribute("currentPage", "dashboard");
@@ -31,7 +33,7 @@ public class NavigationServlet extends HttpServlet {
                     return;
                 }
         }
-        
+
         request.setAttribute("currentPage", page);
         request.getRequestDispatcher("/admin/" + page + ".jsp").forward(request, response);
     }
