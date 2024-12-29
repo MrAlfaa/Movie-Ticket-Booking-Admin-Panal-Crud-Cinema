@@ -23,6 +23,9 @@ public class NavigationServlet extends HttpServlet {
             case "users":
                 response.sendRedirect(request.getContextPath() + "/admin/users");
                 return;
+            case "feedback":
+                response.sendRedirect(request.getContextPath() + "/admin/feedback");
+                return;
             case "dashboard":
                 request.setAttribute("currentPage", "dashboard");
                 request.getRequestDispatcher("/admin/dashboard.jsp").forward(request, response);
@@ -39,6 +42,6 @@ public class NavigationServlet extends HttpServlet {
     }
 
     private boolean isValidPage(String page) {
-        return Arrays.asList("dashboard", "tickets", "users", "bookings").contains(page);
+        return Arrays.asList("dashboard", "tickets", "users", "bookings", "feedback").contains(page);
     }
 }

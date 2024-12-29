@@ -27,7 +27,7 @@ public class FeedbackServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            List<Feedback> feedbacks = feedbackDAO.getAllFeedback();
+            List<Feedback> feedbacks = feedbackDAO.getAllFeedbackWithUsernames();
             request.setAttribute("feedbacks", feedbacks);
             request.getRequestDispatcher("/user/feedback.jsp").forward(request, response);
         } catch (SQLException e) {
@@ -56,8 +56,7 @@ public class FeedbackServlet extends HttpServlet {
             feedbackDAO.addFeedback(feedback);
             request.setAttribute("success", "Thank you for your feedback!");
 
-            // Fetch updated feedback list after submission
-            List<Feedback> feedbacks = feedbackDAO.getAllFeedback();
+            List<Feedback> feedbacks = feedbackDAO.getAllFeedbackWithUsernames();
             request.setAttribute("feedbacks", feedbacks);
 
             request.getRequestDispatcher("/user/feedback.jsp").forward(request, response);

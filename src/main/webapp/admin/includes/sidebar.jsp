@@ -22,6 +22,10 @@
            class="nav-item ${param.page == 'users' ? 'active' : ''}">
             <i class="fas fa-users"></i> User Management
         </a>
+        <a href="${pageContext.request.contextPath}/admin/feedback" class="nav-item ${param.page == 'feedback' ? 'active' : ''}">
+            <i class="fas fa-comments"></i> Feedback Management
+        </a>
+        
         <a href="${pageContext.request.contextPath}/admin/navigation?page=bookings" 
            class="nav-item ${param.page == 'bookings' ? 'active' : ''}">
             <i class="fas fa-book"></i> Booking Management
