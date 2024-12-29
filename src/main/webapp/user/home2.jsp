@@ -10,109 +10,7 @@
     <link href="../css/home.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
-    <style>
-        .profile-icon {
-            display: flex;
-            align-items: center;
-            padding: 5px 15px;
-            cursor: pointer;
-            border-radius: 30px;
-            transition: background-color 0.3s;
-        }
-        
-        .profile-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .avatar-circle {
-            width: 35px;
-            height: 35px;
-            background-color: #e50914;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-        }
-        
-        .avatar-circle-large {
-            width: 50px;
-            height: 50px;
-            background-color: #e50914;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .avatar-circle i, .avatar-circle-large i {
-            color: white;
-            font-size: 1.2em;
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .username {
-            color: white;
-            font-weight: 500;
-            font-size: 0.95em;
-        }
-        
-        .dropdown-menu {
-            background-color: #141414;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px;
-            min-width: 250px;
-        }
-        
-        .dropdown-item {
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .dropdown-item:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        
-        .dropdown-item i {
-            width: 20px;
-            text-align: center;
-        }
-        
-        .dropdown-header {
-            padding: 12px 16px;
-            color: #fff;
-        }
-        
-        .animate {
-            animation-duration: 0.3s;
-            animation-fill-mode: both;
-        }
-        
-        .slideIn {
-            animation-name: slideIn;
-        }
-        
-        @keyframes slideIn {
-            0% {
-                transform: translateY(1rem);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0rem);
-                opacity: 1;
-            }
-        }
-        </style>
+    
 </head>
 
 <body class="bg-black text-white">
@@ -146,10 +44,11 @@
 
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">My Bookings</a>
+                                            <a class="nav-link text-white mx-2" href="${pageContext.request.contextPath}/user/bookings">My Bookings</a>
+
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white mx-2" href="#">Feedback</a>
+                                            <a class="nav-link text-white mx-2" href="${pageContext.request.contextPath}/user/feedback">Feedback</a>
                                         </li>
                                     </ul>
                                     <!-- Login button next to the links -->
@@ -180,7 +79,7 @@
                                             </li>
                                             <li><hr class="dropdown-divider"></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> My Profile</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/bookings"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>
                                             <li><hr class="dropdown-divider"></li>
@@ -485,5 +384,31 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelector('.dropdown-item.text-danger').addEventListener('click', function(e) {
+            e.preventDefault();
+            const logoutLink = this.href;
+            
+            // Add visual feedback
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+            
+            // Fade out effect
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '0';
+            }, 100);
+        
+            fetch(logoutLink)
+                .then(response => response.json())
+                .then(data => {
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 500);
+                });
+        });
+        </script>
+        
 </body>
 </html>

@@ -23,17 +23,17 @@ public class UserFilter implements Filter {
         boolean isAuthServlet = requestURI.endsWith("/auth");
         boolean isMoviesPage = requestURI.endsWith("/movies");
         boolean isPaymentPage = requestURI.contains("/payment");
+        boolean isBookingsPage = requestURI.endsWith("/bookings");
+        boolean isFeedbackPage = requestURI.endsWith("/feedback") || requestURI.endsWith("feedback.jsp");
 
         if (isPaymentPage && (session == null || session.getAttribute("user") == null)) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
             return;
         }
 
-        if (isHomePage || isLoginPage || isRegisterPage || isAuthServlet
-                || (session != null && session.getAttribute("user") != null)) {
+        if (isHomePage || isLoginPage || isRegisterPage || isAuthServlet || isMoviesPage ||
+                isBookingsPage || isFeedbackPage || (session != null && session.getAttribute("user") != null)) {
             chain.doFilter(request, response);
-        } else if (isMoviesPage && (session == null || session.getAttribute("user") == null)) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
         }

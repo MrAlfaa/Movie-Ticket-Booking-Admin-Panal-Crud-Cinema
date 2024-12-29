@@ -132,3 +132,143 @@ color: #fff !important;
     padding: 20px; /* Ensures padding inside the shadowed area */
     color: white; /* White text for contrast */
 }
+
+/* header section common css */
+
+/* Add these header-related styles */
+.profile-icon {
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+}
+
+.profile-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.avatar-circle {
+    width: 35px;
+    height: 35px;
+    background-color: #e50914;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.avatar-circle-large {
+    width: 50px;
+    height: 50px;
+    background-color: #e50914;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-circle i, .avatar-circle-large i {
+    color: white;
+    font-size: 1.2em;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.username {
+    color: white;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.dropdown-menu {
+    background-color: #141414;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px;
+    min-width: 250px;
+}
+
+.dropdown-item {
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.dropdown-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.dropdown-header {
+    padding: 12px 16px;
+    color: #fff;
+}
+
+.animate {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+}
+
+.slideIn {
+    animation-name: slideIn;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+.nav-link {
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #e50914 !important;
+}
+
+.nav-link.active {
+    color: #e50914 !important;
+}
+.feedback-item {
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.avatar-circle-small {
+    width: 40px;
+    height: 40px;
+    background-color: #e50914;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-circle-small i {
+    color: white;
+    font-size: 1.2em;
+}
+
