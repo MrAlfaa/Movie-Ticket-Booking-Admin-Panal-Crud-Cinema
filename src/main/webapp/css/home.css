@@ -1,42 +1,43 @@
 @font-face {
     font-family: LogoTitle;
     src: url('../fonts/AntonSC-Regular.ttf')format('truetype');
- }
- .logo p {
+}
+
+.logo p {
     height: 40px;
     width: auto;
     color: #fff;
-    font-family:LogoTitle !important; 
+    font-family: LogoTitle !important;
     font-size: 24px;
-    font-weight:bolder;
+    font-weight: bolder;
 }
 
 .navbar {
     background-color: #000;
 }
+
 .gradient-text {
-background: linear-gradient(315deg,#683EF0,#2C39F4);
+    background: linear-gradient(315deg,#683EF0,#2C39F4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.img01{
+.img01 {
     width: 581px;
     height: auto;
     flex-shrink: 0;
 }
-.custom-gap {
-    gap:100px;
 
+.custom-gap {
+    gap: 100px;
 }
 
 .leftside {
     max-width: 500px;
-/*    height: 476px;*/
 }
 
 .btn {
-    border-radius: 0 !important; 
+    border-radius: 0 !important;
     padding: 10px 30px;
     text-decoration: none;
 }
@@ -46,16 +47,17 @@ background: linear-gradient(315deg,#683EF0,#2C39F4);
     color: #000;
     border: 1px solid #000;
 }
+
 .btn-dark {
     background-color: #000 !important;
     color: #fff;
     border: 1px solid #fff !important;
 }
 
-.btn-dark:hover{
+.btn-dark:hover {
     background-color: #fff !important;
-    color:#000 !important;
-    border-color:#000 !important;
+    color: #000 !important;
+    border-color: #000 !important;
 }
 
 .btn-light:hover {
@@ -69,7 +71,6 @@ h3 {
     color: white;
     margin-top: 15px;
 }
-
 
 p {
     color: white;
@@ -88,7 +89,6 @@ svg {
 .anchor {
     text-decoration: none !important;
     color: #fff !important;
-    
 }
 
 .arrow-icon {
@@ -97,14 +97,12 @@ svg {
 }
 
 .arrow-icon:hover {
-    transform: scale(1.3) !important; /* Enlarges the arrow */
-    z-index: 10 !important; /* Brings it to the front */
+    transform: scale(1.3) !important;
+    z-index: 10 !important;
 }
 
-
-
 .faqubtn {
-color: #fff !important;
+    color: #fff !important;
 }
 
 .homePagecustom {
@@ -112,30 +110,27 @@ color: #fff !important;
 }
 
 .my-section {
-    background-image: url('../images/homeimg04.jpeg'); /* Ensure the correct path */
+    background-image: url('../images/homeimg04.jpeg');
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
-    background-size: cover; /* Ensures the image covers the container */
-    background-repeat: no-repeat; /* Prevents repeating */
-    background-position: center; /* Centers the image */
-    height: 400px; /* Adjust the height */
-    display: flex; /* Enables flexbox for centering */
-    justify-content: center; /* Centers content horizontally */
-    align-items: center; /* Centers content vertically */
-    color: black; /* Makes text readable on dark images */
-    text-align: center; /* Centers text */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-align: center;
 }
 
 .shadow-overlay {
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    border-radius: 8px; /* Optional rounded corners */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8); /* Adds shadow */
-    padding: 20px; /* Ensures padding inside the shadowed area */
-    color: white; /* White text for contrast */
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    color: white;
 }
 
-/* header section common css */
-
-/* Add these header-related styles */
 .profile-icon {
     display: flex;
     align-items: center;
@@ -150,29 +145,31 @@ color: #fff !important;
 }
 
 .avatar-circle {
-    width: 35px;
-    height: 35px;
-    background-color: #e50914;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    background: linear-gradient(45deg, #e50914, #ff5f6d);
+}
+
+.avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .avatar-circle-large {
     width: 50px;
     height: 50px;
-    background-color: #e50914;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.avatar-circle i, .avatar-circle-large i {
-    color: white;
-    font-size: 1.2em;
+.dropdown-header .avatar-circle-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .user-info {
@@ -249,6 +246,7 @@ color: #fff !important;
 .nav-link.active {
     color: #e50914 !important;
 }
+
 .feedback-item {
     max-width: 800px;
     padding: 20px;
@@ -271,4 +269,3 @@ color: #fff !important;
     color: white;
     font-size: 1.2em;
 }
-

@@ -12,6 +12,7 @@ public class User {
     private String gender;
     private String role;
     private Timestamp createdAt;
+    private String profileImageUrl;
 
     // Getters and Setters
     public int getUserId() {
@@ -84,5 +85,13 @@ public class User {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }
