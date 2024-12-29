@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     proceedButton.addEventListener('click', function() {
         const userId = sessionStorage.getItem('userId');
         if (selectedSeats.length === TICKET_COUNT) {
-            sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+            sessionStorage.setItem('selectedSeats', selectedSeats.join(','));
             // Ensure userId persists
             window.location.href = 'payment.jsp';
         }

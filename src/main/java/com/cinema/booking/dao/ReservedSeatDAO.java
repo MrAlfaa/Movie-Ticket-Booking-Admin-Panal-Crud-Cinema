@@ -58,4 +58,24 @@ public class ReservedSeatDAO {
             stmt.executeUpdate();
         }
     }
+
+    public List<ReservedSeat> getSeatsByBookingId(int bookingId) throws SQLException {
+        List<ReservedSeat> seats = new ArrayList<>();
+        String sql = "SELECT * FROM reserved_seats WHERE booking_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, bookingId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                ReservedSeat seat = new ReservedSeat();
+                seat.setSeatId(rs.getInt("seat_id"));
+                seat.setBookingId(rs.getInt("booking_id"));
+                seat.setSeatNumber(rs.getString("seat_number"));
+                seat.setStatus(rs.getString("status"));
+                seats.add(seat);
+            }
+        }
+        return seats;
+    }
 }
