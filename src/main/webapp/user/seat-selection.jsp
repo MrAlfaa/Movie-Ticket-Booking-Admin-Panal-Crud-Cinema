@@ -6,7 +6,25 @@
     <link href="../css/seat-selection.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
+    <style>
+        .seat.occupied {
+            background-color: #ff4444;  /* Red color for occupied seats */
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .seat.available {
+            background-color: #444451;  /* Dark gray for available seats */
+        }
+        
+        .seat.selected {
+            background-color: #6feaf6;  /* Light blue for selected seats */
+        }
+        
+        .seat-legend .occupied {
+            background-color: #ff4444;
+        }
+    </style>
 </head>
 <body class="bg-dark text-white">
     <div class="container mt-5">
@@ -28,7 +46,10 @@
                 </div>
             </div>
         </div>
-        
+
+        <input type="hidden" id="movieId" value="${sessionScope.movieId}">
+        <input type="hidden" id="showTime" value="${sessionScope.selectedShowTime}">
+        <input type="hidden" id="bookingDate" value="${sessionScope.selectedDate}">
         
         <div class="screen-container">
             <div class="screen">Screen</div>

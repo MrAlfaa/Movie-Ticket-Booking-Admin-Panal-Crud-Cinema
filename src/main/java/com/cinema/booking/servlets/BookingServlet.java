@@ -60,6 +60,7 @@ public class BookingServlet extends HttpServlet {
         session.setAttribute("userId", user.getUserId());
 
         Movie movie = movieDAO.getMovieById(Integer.parseInt(request.getParameter("movieId")));
+        session.setAttribute("movieId", movie.getMovieId());
         session.setAttribute("selectedMovie", movie.getTitle());
         session.setAttribute("selectedShowTime", request.getParameter("showTime"));
         session.setAttribute("selectedDate", request.getParameter("bookingDate"));

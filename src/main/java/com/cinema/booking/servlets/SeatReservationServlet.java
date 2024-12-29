@@ -1,6 +1,7 @@
 package com.cinema.booking.servlets;
 
 import java.io.IOException;
+import java.io.BufferedReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +12,14 @@ import com.cinema.booking.dao.ReservedSeatDAO;
 import com.cinema.booking.model.ReservedSeat;
 import com.cinema.booking.model.User;
 import com.google.gson.Gson;
+import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
 
-@WebServlet("/user/seats/*")
+@WebServlet(urlPatterns = {
+        "/user/seats/reserved",
+        "/user/seats/store-session"
+})
 public class SeatReservationServlet extends HttpServlet {
     private ReservedSeatDAO reservedSeatDAO;
     private Gson gson;
@@ -44,6 +49,42 @@ public class SeatReservationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String pathInfo = request.getServletPath();
+
+        if (pathInfo.endsWith("/store-session")) {
+            handleStoreSession(request, response);
+        } else {
+            handleSeatReservation(request, response);
+        }
+    }
+
+    private void handleStoreSession(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            BufferedReader reader = request.getReader();
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+
+            JSONObject jsonRequest = new JSONObject(sb.toString());
+            String selectedSeats = jsonRequest.getString("selectedSeats");
+
+            HttpSession session = request.getSession();
+            session.setAttribute("selectedSeats", selectedSeats);
+
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("{\"status\": \"success\"}");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
+
+    private void handleSeatReservation(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
