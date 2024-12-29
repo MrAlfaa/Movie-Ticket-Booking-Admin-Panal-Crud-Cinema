@@ -106,9 +106,11 @@
 }
 
 .seat.occupied {
-    background-color: #e74c3c;
+    background-color: #444451;
     cursor: not-allowed;
+    pointer-events: none;
 }
+
 
 .seat-legend {
     display: flex;

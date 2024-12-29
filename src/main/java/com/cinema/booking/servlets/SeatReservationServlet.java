@@ -16,7 +16,10 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
 
-@WebServlet("/user/seats/store-session")
+@WebServlet(urlPatterns = {
+        "/user/seats/reserved",
+        "/user/seats/store-session"
+})
 public class SeatReservationServlet extends HttpServlet {
     private ReservedSeatDAO reservedSeatDAO;
     private Gson gson;
@@ -46,6 +49,17 @@ public class SeatReservationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String pathInfo = request.getServletPath();
+
+        if (pathInfo.endsWith("/store-session")) {
+            handleStoreSession(request, response);
+        } else {
+            handleSeatReservation(request, response);
+        }
+    }
+
+    private void handleStoreSession(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             BufferedReader reader = request.getReader();

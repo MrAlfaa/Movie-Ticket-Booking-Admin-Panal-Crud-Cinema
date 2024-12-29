@@ -68,30 +68,46 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function loadReservedSeats() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const movieId = urlParams.get('movieId');
-        const showTime = urlParams.get('showTime');
-        const bookingDate = urlParams.get('bookingDate');
+        const movieId = document.getElementById('movieId').value;
+        const showTime = document.getElementById('showTime').value;
+        const bookingDate = document.getElementById('bookingDate').value;
         
-        fetch(`/user/seats?movieId=${movieId}&showTime=${showTime}&bookingDate=${bookingDate}`)
-            .then(response => response.json())
+        if (!movieId || !showTime || !bookingDate) {
+            console.error('Missing required parameters');
+            return;
+        }
+
+        fetch(`/CinemaBookingAdminPanel/user/seats/reserved?movieId=${movieId}&showTime=${showTime}&bookingDate=${bookingDate}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to fetch reserved seats');
+                return response.json();
+            })
             .then(reservedSeats => {
-                reservedSeats.forEach(seatNumber => {
-                    const seat = document.querySelector(`[data-seat-number="${seatNumber}"]`);
+                console.log('Reserved seats:', reservedSeats);
+                // Parse the JSON array if it's a string
+                const seatArray = typeof reservedSeats === 'string' ? JSON.parse(reservedSeats) : reservedSeats;
+                
+                seatArray.forEach(seatNumber => {
+                    // Remove any quotes or brackets from the seat number
+                    const cleanSeatNumber = seatNumber.replace(/[\[\]"]/g, '');
+                    const seat = document.querySelector(`[data-seat-number="${cleanSeatNumber}"]`);
                     if (seat) {
                         seat.classList.remove('available');
                         seat.classList.add('occupied');
+                        seat.setAttribute('title', 'Already booked');
                     }
                 });
             })
-            .catch(error => console.error('Error loading reserved seats:', error));
+            .catch(error => {
+                console.error('Error loading reserved seats:', error);
+                showAlert('Error loading seat availability');
+            });
     }
     
     proceedButton.addEventListener('click', function() {
         const userId = sessionStorage.getItem('userId');
         if (selectedSeats.length === TICKET_COUNT) {
             sessionStorage.setItem('selectedSeats', selectedSeats.join(','));
-            // Ensure userId persists
             window.location.href = 'payment.jsp';
         }
     });

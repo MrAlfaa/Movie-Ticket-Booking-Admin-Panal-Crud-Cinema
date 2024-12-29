@@ -35,7 +35,8 @@ public class ReservedSeatDAO {
         List<String> reservedSeats = new ArrayList<>();
         String sql = "SELECT rs.seat_number FROM reserved_seats rs " +
                 "JOIN bookings b ON rs.booking_id = b.booking_id " +
-                "WHERE b.movie_id = ? AND b.show_time = ? AND b.booking_date = ?";
+                "WHERE b.movie_id = ? AND b.show_time = ? AND b.booking_date = ? " +
+                "AND b.payment_status = 'COMPLETED'";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, movieId);

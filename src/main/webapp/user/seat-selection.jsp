@@ -6,7 +6,6 @@
     <link href="../css/seat-selection.css" rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
 </head>
 <body class="bg-dark text-white">
     <div class="container mt-5">
@@ -28,7 +27,10 @@
                 </div>
             </div>
         </div>
-        
+
+        <input type="hidden" id="movieId" value="${sessionScope.movieId}">
+        <input type="hidden" id="showTime" value="${sessionScope.selectedShowTime}">
+        <input type="hidden" id="bookingDate" value="${sessionScope.selectedDate}">
         
         <div class="screen-container">
             <div class="screen">Screen</div>
