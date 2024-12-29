@@ -13,6 +13,7 @@ public class User {
     private String role;
     private Timestamp createdAt;
     private String profileImageUrl;
+    private String status;
 
     // Getters and Setters
     public int getUserId() {
@@ -93,5 +94,13 @@ public class User {
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
