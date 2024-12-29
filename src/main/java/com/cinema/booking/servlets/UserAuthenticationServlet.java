@@ -19,6 +19,17 @@ public class UserAuthenticationServlet extends HttpServlet {
         userDAO = new UserDAO();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if ("logout".equals(action)) {
+            handleLogout(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+        }
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -93,6 +104,14 @@ public class UserAuthenticationServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+
+        // Set headers to prevent caching
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+
+        // Send JSON response for smooth transition
+        response.setContentType("application/json");
+        response.getWriter().write("{\"redirect\":\"" + request.getContextPath() + "/user/home.jsp\"}");
     }
 }

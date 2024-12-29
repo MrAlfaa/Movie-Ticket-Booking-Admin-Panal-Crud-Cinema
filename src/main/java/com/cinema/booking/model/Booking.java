@@ -15,6 +15,7 @@ public class Booking {
     private String paymentStatus;
     private String paymentIntentId;
     private Timestamp createdAt;
+    private String movieTitle;
 
     // Getters and Setters
     public int getBookingId() {
@@ -95,5 +96,13 @@ public class Booking {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getMovieTitle() {
+        return movieTitle;
+    }
+
+    public void setMovieTitle(String movieTitle) {
+        this.movieTitle = movieTitle;
     }
 }
