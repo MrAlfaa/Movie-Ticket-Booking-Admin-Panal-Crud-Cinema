@@ -25,6 +25,7 @@ public class UserFilter implements Filter {
         boolean isPaymentPage = requestURI.contains("/payment");
         boolean isBookingsPage = requestURI.endsWith("/bookings");
         boolean isFeedbackPage = requestURI.endsWith("/feedback") || requestURI.endsWith("feedback.jsp");
+        boolean isProfilePage = requestURI.endsWith("/profile.jsp");
 
         if (isPaymentPage && (session == null || session.getAttribute("user") == null)) {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");
@@ -32,7 +33,8 @@ public class UserFilter implements Filter {
         }
 
         if (isHomePage || isLoginPage || isRegisterPage || isAuthServlet || isMoviesPage ||
-                isBookingsPage || isFeedbackPage || (session != null && session.getAttribute("user") != null)) {
+                isBookingsPage || isFeedbackPage || isProfilePage ||
+                (session != null && session.getAttribute("user") != null)) {
             chain.doFilter(request, response);
         } else {
             httpResponse.sendRedirect(httpRequest.getContextPath() + "/user/login.jsp");

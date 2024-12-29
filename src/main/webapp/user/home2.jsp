@@ -55,7 +55,14 @@
                                     <div class="dropdown">
                                         <div class="profile-icon" data-bs-toggle="dropdown" aria-expanded="false">
                                             <div class="avatar-circle">
-                                                <i class="fas fa-user"></i>
+                                                <c:choose>
+                                                    <c:when test="${not empty sessionScope.user.profileImageUrl}">
+                                                        <img src="${sessionScope.user.profileImageUrl}" alt="Profile" class="profile-image">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="fas fa-user"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                             <div class="user-info">
                                                 <span class="username">
@@ -69,7 +76,14 @@
                                             <li class="dropdown-header">
                                                 <div class="d-flex align-items-center">
                                                     <div class="avatar-circle-large">
-                                                        <i class="fas fa-user"></i>
+                                                        <c:choose>
+                                                            <c:when test="${not empty sessionScope.user.profileImageUrl}">
+                                                                <img src="${sessionScope.user.profileImageUrl}" alt="Profile">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <i class="fas fa-user"></i>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
                                                     <div class="ms-3">
                                                         <h6 class="mb-0">${sessionScope.user.username}</h6>
@@ -77,8 +91,9 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            
                                             <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile.jsp"><i class="fas fa-user-circle"></i> My Profile</a></li>
                                             <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user/bookings"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>

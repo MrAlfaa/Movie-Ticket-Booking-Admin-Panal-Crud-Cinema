@@ -46,6 +46,7 @@ public class UserDAO {
                 user.setNic(rs.getString("nic"));
                 user.setGender(rs.getString("gender"));
                 user.setRole(rs.getString("role"));
+                user.setProfileImageUrl(rs.getString("profile_image_url"));
                 return user;
             }
         }
@@ -66,9 +67,25 @@ public class UserDAO {
                 user.setNic(rs.getString("nic"));
                 user.setGender(rs.getString("gender"));
                 user.setRole(rs.getString("role"));
+                user.setProfileImageUrl(rs.getString("profile_image_url"));
                 return user;
             }
         }
         return null;
+    }
+
+    public boolean updateUserProfile(User user) throws SQLException {
+        String sql = "UPDATE users SET email = ?, phone_number = ?, nic = ?, gender = ?, profile_image_url = ? WHERE user_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPhoneNumber());
+            stmt.setString(3, user.getNic());
+            stmt.setString(4, user.getGender());
+            stmt.setString(5, user.getProfileImageUrl());
+            stmt.setInt(6, user.getUserId());
+
+            return stmt.executeUpdate() > 0;
+        }
     }
 }
