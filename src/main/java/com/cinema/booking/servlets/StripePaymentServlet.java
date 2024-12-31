@@ -3,6 +3,8 @@ package com.cinema.booking.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,8 @@ import com.stripe.model.Refund;
 import com.cinema.booking.service.StripeService;
 import com.cinema.booking.service.PaymentService;
 import com.cinema.booking.dao.BookingDAO;
+import com.cinema.booking.dao.ReservedSeatDAO;
+import com.cinema.booking.model.ReservedSeat;
 import com.cinema.booking.webhooks.StripeWebhookHandler;
 import com.cinema.booking.config.StripeConfig;
 import com.cinema.booking.util.ResponseHandler;
@@ -122,8 +126,6 @@ public class StripePaymentServlet extends HttpServlet {
         try {
             String requestData = request.getReader().lines()
                     .reduce("", (accumulator, actual) -> accumulator + actual);
-            System.out.println("Received payment data: " + requestData);
-
             JSONObject jsonRequest = new JSONObject(requestData);
 
             if (!jsonRequest.has("bookingId") || !jsonRequest.has("userId") ||
@@ -137,14 +139,28 @@ public class StripePaymentServlet extends HttpServlet {
             String paymentIntentId = jsonRequest.getString("paymentIntentId");
 
             paymentService.processPayment(bookingId, userId, amount, paymentIntentId);
+
+            HttpSession session = request.getSession();
+            String[] selectedSeats = ((String) session.getAttribute("selectedSeats")).split(",");
+
+            List<ReservedSeat> seats = new ArrayList<>();
+            for (String seatNumber : selectedSeats) {
+                ReservedSeat seat = new ReservedSeat();
+                seat.setBookingId(bookingId);
+                seat.setSeatNumber(seatNumber.trim());
+                seat.setStatus("CONFIRMED");
+                seats.add(seat);
+            }
+
+            ReservedSeatDAO reservedSeatDAO = new ReservedSeatDAO();
+            reservedSeatDAO.reserveSeats(seats);
+
             bookingDAO.updatePaymentStatus(bookingId, PaymentStatus.COMPLETED, paymentIntentId);
 
             ResponseHandler.sendSuccessResponse(response,
                     new JSONObject().put("message", "Payment processed successfully"));
 
         } catch (Exception e) {
-            System.err.println("Payment processing error: " + e.getMessage());
-            e.printStackTrace();
             ResponseHandler.sendErrorResponse(response, "Failed to process payment: " + e.getMessage(),
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

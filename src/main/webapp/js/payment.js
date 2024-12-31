@@ -63,6 +63,36 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        const selectedSeats = sessionStorage.getItem('selectedSeats');
+        if (!selectedSeats) {
+            showError('No seats selected');
+            return;
+        }
+
+        try {
+            const response = await fetch('/CinemaBookingAdminPanel/user/seats/store-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    selectedSeats: selectedSeats
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to store seats in session');
+            }
+            
+            const result = await response.json();
+            if (result.error) {
+                throw new Error(result.error);
+            }
+        } catch (error) {
+            showError('Failed to store seats: ' + error.message);
+            return;
+        }
+
         const userId = sessionStorage.getItem('userId');
         if (!userId) {
             showError('User session not found. Please login again.');
@@ -192,6 +222,7 @@ function cancelPayment() {
     const confirmed = confirm('Are you sure you want to cancel this payment? Your booking will be lost.');
     if (confirmed) {
         sessionStorage.removeItem('totalAmount');
+        sessionStorage.removeItem('selectedSeats');
         window.location.href = '/user/movies';
     }
 }
